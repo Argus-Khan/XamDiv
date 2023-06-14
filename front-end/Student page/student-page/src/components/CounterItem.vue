@@ -26,9 +26,3 @@
          }
      }
 </script>
-
-<style>
-.timer {
-    margin: 10px;
-}
-</style>
