@@ -6,9 +6,9 @@
       </v-col>
       <v-col align="center" style="background-color: #512DA8CC" class="v-col-4 offset-4 rounded-xl h-50 hidden-sm-and-down pa-10">
         <p class="text-white text-h4">XamDiv Login</p>
-        <v-form @submit.prevent="" class="py-8" style="height: 100%;">
+        <v-form @submit.prevent="" class="py-8">
           <v-text-field v-model="ID" label="User ID" class="text-white" color="white"></v-text-field>
-          <v-text-field v-model="Password" label="Password" class="text-white" color="white" type="password" v-if="ProfID()"></v-text-field>
+          <v-text-field v-model="Password" label="Password" class="text-white" color="white" v-if="ProfID()"></v-text-field>
           <v-btn type="Submit" class="bg-deep-purple-darken-4 rounded-pill">Submit</v-btn>
         </v-form>
       </v-col>
@@ -18,7 +18,6 @@
 
 <script>
 import { defineComponent } from 'vue';
-
 // Components
 
 
