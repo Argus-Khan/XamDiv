@@ -3,7 +3,10 @@
 
 A "secure" portable exam taking device (XamDiv) where the professor plugs it in and the device does the rest.
 
-[UI DEMO](https://www.figma.com/proto/UfVC45NWZMSGn9mdEnhyEO/XamDiv?type=design&node-id=9-88&scaling=min-zoom&page-id=7%3A15&starting-point-node-id=9%3A88)
+##UI
+
+[DEMO](https://www.figma.com/proto/UfVC45NWZMSGn9mdEnhyEO/XamDiv?type=design&node-id=9-88&scaling=min-zoom&page-id=7%3A15&starting-point-node-id=9%3A88)
+[Detailed View](https://www.figma.com/file/UfVC45NWZMSGn9mdEnhyEO/XamDiv?type=design&node-id=7%3A15&t=cKvBjVW5s9DpsngA-1)
 
 ## Functionality
 - The users (professors and students) can connect to the device's network (Wi-Fi) and access the XamDiv webapp.
