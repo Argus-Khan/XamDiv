@@ -2,7 +2,7 @@
     <v-navigation-drawer expand-on-hover rail>
         
       <v-list>
-          <v-list-item prepend-avatar="../../public/student_icon.jpg" title="Ron Ismaili" subtitle="ri30050@seeu.edu.mk">
+          <v-list-item prepend-avatar="./student_icon.jpg" title="Ron Ismaili" subtitle="ri30050@seeu.edu.mk">
           </v-list-item>
         </v-list>
 
