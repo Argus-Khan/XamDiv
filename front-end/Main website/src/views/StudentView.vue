@@ -4,36 +4,35 @@
       
     <v-container style="position: absolute; left: 0; top: 0; width: 100px; height: 100px;"><Note/></v-container>
 
-    <NavBar style="background-color: blueviolet;"/>
+    <NavBar class="bg-purple-darken-4"/>
       
         <v-main>
 
-          <v-container fluid class="h-100 pa-0 ma-0" style="background-color: green;">
+          <v-container fluid class="h-100 pa-0 ma-0 bg-purple-darken-4">
 
             <v-row>
               <v-col align="center" class="v-col-2 offset-5 pa-5">
                 <Counter/>
               </v-col>
               <v-col align="right" class="v-col-1 offset-3 pa-5">
-                  <v-btn variant="tonal" @click="ToggleShow()">
+                  <v-btn variant="tonal" rounded>
                      Note
                   </v-btn>
               </v-col>
               <v-col align="center" class="v-col-1 offset-0 pa-5">
-                  <v-btn variant="tonal" @click="ToggleShow()">
+                  <v-btn variant="tonal" rounded @click="ToggleShow()">
                      Submit
                   </v-btn>
               </v-col>
             </v-row>
   
-            <v-row class="h-100 ma-0" style="background-color: aquamarine;">
-              <v-col align="center" v-show="ShowQuestion" style="background-color: grey;">
+            <v-row class="h-100 pa-0 ma-0" fluid style="background-color: violet;">
+              <v-col align="center" class="pa-0 ma-0 bg-purple-darken-1" v-show="ShowQuestion">
                 QUESTION SECTION
               </v-col>
-              <v-col align="center" style="background-color: white;">
-                <!-- EDITOR SECTION -->
+              <v-col class="pa-0 ma-0" style="background-color: gold;">
                 <Editor/>
-                <Console/>
+                <Console/> <!-- THIS COULD CAUSE AN UNNECESSARY SCROLLBAR -->
               </v-col>           
             </v-row>
   
@@ -71,6 +70,7 @@ export default defineComponent({
             QuestionID: 1
         }
     },
+
     methods: {
         ToggleShow() {
             this.ShowQuestion = !this.ShowQuestion
@@ -78,3 +78,7 @@ export default defineComponent({
     }
 });
 </script>
+
+<!-- <style>
+* { border: red solid 1px;}
+</style> -->

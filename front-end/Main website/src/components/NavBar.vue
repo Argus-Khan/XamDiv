@@ -5,8 +5,6 @@
           <v-list-item prepend-avatar="./student_icon.jpg" title="Ron Ismaili" subtitle="ri30050@seeu.edu.mk">
           </v-list-item>
         </v-list>
-
-        <v-divider></v-divider>
         
         <v-list density="compact" nav>
           <v-list-item prepend-icon="mdi-star" title="Question 1" value="Question_1"></v-list-item>
