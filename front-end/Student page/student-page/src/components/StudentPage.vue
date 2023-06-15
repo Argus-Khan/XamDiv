@@ -8,10 +8,10 @@
         <v-container fluid class="h-100 pa-0 ma-0" style="background-color: green;">
         
           <v-row>
-            <v-col align="center" class="v-col-1 offset-5 pa-5">
+            <v-col align="center" class="v-col-1 offset-9 pa-5">
               <Counter/>
             </v-col>
-            <v-col align="right" class="v-col-1 offset-4 pa-5">
+            <v-col align="right" class="v-col-1 offset-0 pa-5">
                 <v-btn variant="tonal" @click="ToggleShow()">
                    Note
                 </v-btn>
