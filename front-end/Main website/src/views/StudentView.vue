@@ -12,7 +12,7 @@
           <v-container fluid class="h-100 pa-0 ma-0">
 
             <v-row class="bg-grey-darken-3 pa-0 ma-0">
-              <v-col align="right" class="v-col-1 offset-0">
+              <v-col align="center" class="v-col-1 offset-0">
                   <v-btn variant="tonal" rounded @click="TogglePopup()">
                      Note
                   </v-btn>

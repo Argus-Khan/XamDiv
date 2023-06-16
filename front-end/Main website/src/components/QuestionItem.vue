@@ -1,20 +1,20 @@
 <template>
     <v-container class="pa-5 ma-0 h-100">
         <v-row class="pa-0 ma-0">
-            <v-col align="center" class="v-col-11 offset-0 pa-4">
+            <v-col class="v-col-11 offset-0 pt-4 pl-0">
                 <h2>Question {{ QuestionNumber }}</h2>
+                <p>{{ MarkList[num] }} Pts.</p>
             </v-col>
             <v-col align="center" class="v-col-1 offset-0">
                 <v-btn variant="tonal" rounded @click="this.$emit('CloseQuestion')">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </v-col>
+            <v-divider class="border-opacity-100"></v-divider>
         </v-row>
         <v-row>
             <v-col>
-                <v-divider class="border-opacity-100"></v-divider>
                     {{ QuestionList[num] }}
-                <v-divider class="border-opacity-100"></v-divider>
             </v-col>
         </v-row>
     </v-container>
@@ -27,11 +27,14 @@ export default {
         return {
             num: 0,
             QuestionList: [
-                'jasoighioshfi;oh gfsnhf8p shfiohsf89 nhsifh9s8 hf98whf89 whfi shaiufhI LOVE fosihf shfus fiuhsfi',
-                'hfsifishf sif',
-                'I WILL KILL',
-                'MYSELF',
-                'OISJFIOSH IFOHFIHF9IUFNH'
+                'Devise an algorithm to insert a node in a Binary Search Tree.',
+                'Define tree traversal and list some of the algorithms to traverse a binary tree.',
+                'Write an algorithm to find the maximum subarray sum for a given array. In other words, find the maximum sum that can be achieved by taking contiguous elements from a given array of integers.',
+                'Define insertion sort and selection sort.',
+                'Write an algorithm to reverse a string. For example, if my string is "uhsnamiH" then my result will be "Himanshu".'
+            ],
+            MarkList: [
+                5, 10, 15, 20, 25
             ]
         }
     },
