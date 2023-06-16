@@ -22,7 +22,7 @@
                     Don't Submit
                 </v-btn>
                 
-                <v-btn color="green-darken-1" variant="tonal" @click="ClosePrompt">
+                <v-btn color="green-darken-1" variant="tonal" @click="Finish">
                     Submit
                 </v-btn>
           </v-card-actions>
@@ -44,6 +44,9 @@ export default{
           this.dialog = false
           this.loading = false
         },
+        Finish: function() {
+          this.$router.push('/end');
+        }
       },
 }
 </script>
