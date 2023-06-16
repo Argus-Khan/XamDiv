@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 back-end/answers/
 front-end/Login page/node_modules/
+back-end/database/
