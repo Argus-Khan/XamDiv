@@ -26,5 +26,6 @@ export default {
         overflow-y: auto;
         max-height: 19.9vh;
         background-color: #0d0f17;
+        border-top: 5px solid #424242;
     }
 </style>
