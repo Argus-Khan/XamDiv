@@ -1,21 +1,24 @@
 <template>
     <v-container fluid class="pa-2 ma-0 temp">
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
-        I am the console! <br>
+        {{ consoleOutput }}
     </v-container>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            consoleOutput: "Awaiting first compile..."
+        }
+    },
+
+    methods: {
+        UpdateConsoleOutput(output) {
+            this.consoleOutput = output
+        }
+    }
+}
+</script>
 
 <style scoped>
     .temp {
