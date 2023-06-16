@@ -18,7 +18,7 @@
                   </v-btn>
               </v-col>
               <v-col align="center" class="v-col-2 offset-4">
-                <Counter/>
+                <Counter :StartCountdown="StartCountdown"/>
               </v-col>
               <v-col align="center" class="v-col-1 offset-3">
                   <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" variant="tonal" @click="SendToCompiler" rounded>
@@ -81,7 +81,8 @@ export default defineComponent({
             ShowPopup: true,
             QuestionNumber: 1,
             CompileDisabled: [false, false, false, false, false],
-            Compiles: [0, 0, 0, 0, 0]
+            Compiles: [0, 0, 0, 0, 0],
+            StartCountdown: false
         }
     },
 
@@ -91,6 +92,7 @@ export default defineComponent({
         },
         TogglePopup() {
           this.ShowPopup = !this.ShowPopup
+          this.StartCountdown = true
         },
         ChangeQuestion(num) {
           this.QuestionNumber = num
