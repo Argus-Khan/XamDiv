@@ -4,36 +4,44 @@
       
     <v-container style="position: absolute; left: 0; top: 0; width: 100px; height: 100px;"><Note/></v-container>
 
-    <NavBar class="bg-purple-darken-4"/>
+    <NavBar class="bg-grey-darken-3"/>
       
         <v-main>
 
-          <v-container fluid class="h-100 pa-0 ma-0 bg-purple-darken-4">
+          <v-container fluid class="h-100 pa-0 ma-0">
 
-            <v-row>
-              <v-col align="center" class="v-col-2 offset-5 pa-5">
-                <Counter/>
-              </v-col>
-              <v-col align="right" class="v-col-1 offset-3 pa-5">
+            <v-row class="bg-grey-darken-3 pa-0 ma-0">
+              <v-col align="right" class="v-col-1 offset-0">
                   <v-btn variant="tonal" rounded>
                      Note
                   </v-btn>
               </v-col>
-              <v-col align="center" class="v-col-1 offset-0 pa-5">
+              <v-col align="center" class="v-col-2 offset-4">
+                <Counter/>
+              </v-col>
+              <v-col align="center" class="v-col-1 offset-3">
+                  <v-btn variant="tonal" rounded>
+                     Compile (3)
+                  </v-btn>
+              </v-col>
+              <v-col align="center" class="v-col-1 offset-0">
                   <v-btn variant="tonal" rounded @click="ToggleShow()">
                      Submit
                   </v-btn>
               </v-col>
             </v-row>
   
-            <v-row class="h-100 pa-0 ma-0" fluid style="background-color: violet;">
-              <v-col align="center" class="pa-0 ma-0 bg-purple-darken-1" v-show="ShowQuestion">
-                QUESTION SECTION
+            <v-row class="h-75 pa-5 ma-0 bg-blue-grey-darken-4" fluid>
+              <v-col class="pa-4 ma-0 bg-blue-grey-darken-3 rounded-xl" v-show="ShowQuestion">
+                <QuestionItem/>
               </v-col>
-              <v-col class="pa-0 ma-0" style="background-color: gold;">
-                <Editor/>
-                <Console/> <!-- THIS COULD CAUSE AN UNNECESSARY SCROLLBAR -->
-              </v-col>           
+              <v-col class="h-100 pa-0 ma-0" fluid>
+                <Editor v-show="true"/>
+              </v-col>
+            </v-row>
+
+            <v-row class="h-100 pa-0 ma-0" fluid>
+              <Console v-show="true"/> <!-- THIS COULD CAUSE AN UNNECESSARY SCROLLBAR -->
             </v-row>
   
           </v-container>
@@ -52,6 +60,7 @@ import Counter from "../components/CounterItem.vue"
 import Editor from "../components/CodeEditor.vue"
 import Console from "../components/ConsoleOutput.vue"
 import Note from "../components/ProfessorNote.vue"
+import QuestionItem from "../components/QuestionItem.vue"
 
 export default defineComponent({
     name: 'StudentPageView',
@@ -61,7 +70,8 @@ export default defineComponent({
         Counter,
         Editor,
         Console,
-        Note
+        Note,
+        QuestionItem
     },
 
     data() {

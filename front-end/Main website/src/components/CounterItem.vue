@@ -1,5 +1,5 @@
 <template>
-    <v-chip variant="elevated" class="timer">
+    <v-chip variant="tonal" class="timer">
         {{ countDown }}
     </v-chip>
 </template>

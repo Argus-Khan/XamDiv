@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-0 ma-0 h-100 temp">
+    <v-container fluid class="pa-2 ma-0 temp">
         I am the console! <br>
         I am the console! <br>
         I am the console! <br>
@@ -19,9 +19,9 @@
 
 <style scoped>
     .temp {
-        background-color: black;
-        color: white;
+        color: #04ff00;
         overflow-y: scroll;
-        max-height: 21.9vh;
+        max-height: 19.9vh;
+        background-color: #0d0f17;
     }
 </style>
