@@ -2,7 +2,7 @@
       <v-dialog v-model="dialog" persistent width="auto">
 
         <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" variant="tonal" rounded>
+          <v-btn v-bind="props" variant="tonal" rounded :loading="loading" @click="this.loading = true">
             Submit
           </v-btn>
         </template>
@@ -18,11 +18,11 @@
          
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red-darken-1" variant="tonal" @click="dialog = false">
+                <v-btn color="red-darken-1" variant="tonal" @click="ClosePrompt">
                     Don't Submit
                 </v-btn>
                 
-                <v-btn color="green-darken-1" variant="tonal" @click="dialog = false">
+                <v-btn color="green-darken-1" variant="tonal" @click="ClosePrompt">
                     Submit
                 </v-btn>
           </v-card-actions>
@@ -36,7 +36,14 @@ export default{
       data () {
         return {
           dialog: false,
+          loading: false,
         }
+      },
+      methods: {
+        ClosePrompt () {
+          this.dialog = false
+          this.loading = false
+        },
       },
 }
 </script>

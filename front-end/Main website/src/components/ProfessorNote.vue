@@ -31,7 +31,7 @@
                             <v-card class="rounded-s-lg Title text-white" text="Marks" variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-4 pl-0">
-                            <v-card class="rounded-e-lg" text="20" variant="tonal"></v-card>
+                            <v-card class="rounded-e-lg" text="75" variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-2 pr-0">
                             <v-card class="rounded-s-lg Title text-white" text="Time" variant="tonal"></v-card>
