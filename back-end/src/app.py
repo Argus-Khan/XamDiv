@@ -16,7 +16,9 @@ class Exam(BaseModel):
     date: str
     marks: int
     time: int
+    note: str
     triesAllowed: int
+    questionsNotes: str
     studentsIds: str
 
 def match_token():
@@ -64,6 +66,8 @@ def makeExam(Crnt_Exam : Exam):
         ExamId = "".join(random.sample(s,5))
         Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+ExamId
     os.makedirs(Exam_Dir)
+
+
 
     students_list = Crnt_Exam.studentsIds.replace(" ","")
     students_list = students_list.split(',')
