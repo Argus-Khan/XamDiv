@@ -6,7 +6,7 @@
       </v-col>
       <v-col align="center" class="v-col-4 offset-4 rounded-xl h-50 hidden-sm-and-down pa-10">
         <p class="text-white text-h4">XamDiv Login</p>
-        <v-form @submit.prevent="" class="py-8 h-100">
+        <v-form @submit.prevent="SendToExam" class="py-8 h-100">
           <v-text-field v-model="ID" type="text" label="User ID" class="text-white" color="white">
             <template v-slot:prepend>
               <v-icon class="rounded-circle" icon="mdi-school" size="x-large"></v-icon>
@@ -49,6 +49,9 @@ export default defineComponent({
   methods: {
     ProfID: function() {
       return ((this.ID.length > 9))? true: false;
+    },
+    SendToExam: function() {
+      this.$router.push('/Student');
     }
   }
 });
