@@ -26,9 +26,7 @@
                   </v-btn>
               </v-col>
               <v-col align="center" class="v-col-1 offset-0">
-                  <v-btn variant="tonal" rounded>
-                     Submit
-                  </v-btn>
+                  <SubmitButton/>
               </v-col>
             </v-row>
   
@@ -62,6 +60,7 @@ import Editor from "../components/CodeEditor.vue"
 import Console from "../components/ConsoleOutput.vue"
 import Note from "../components/ProfessorNote.vue"
 import QuestionItem from "../components/QuestionItem.vue"
+import SubmitButton from "../components/SubmitButton.vue"
 
 export default defineComponent({
     name: 'StudentPageView',
@@ -72,7 +71,8 @@ export default defineComponent({
         Editor,
         Console,
         Note,
-        QuestionItem
+        QuestionItem,
+        SubmitButton
     },
 
     data() {
