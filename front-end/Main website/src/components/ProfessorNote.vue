@@ -2,7 +2,7 @@
     <v-component fluid>
         <v-row align="center" class="h-100">
             <v-col align="center" class="v-col-4 offset-4 rounded-xl">
-                <p class="text-white text-h4">Final Exam</p>
+                    <p class="text-white text-h4 roni">Final Exam</p>  <!--text-h4 overwrites the font-family, that's why I added this class -Roni -->
                 <v-container>
                     <v-row class="pa-2">
                         <v-col class="v-col-3 pr-0">
@@ -73,5 +73,8 @@
     }
     .v-card.Title {
         background-color: #655fca;
+    }
+    .roni {
+        font-family: Roboto Mono !important;
     }
 </style>

@@ -23,7 +23,7 @@ export default {
 <style scoped>
     .temp {
         color: #04ff00;
-        overflow-y: scroll;
+        overflow-y: auto;
         max-height: 19.9vh;
         background-color: #0d0f17;
     }
