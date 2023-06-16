@@ -37,7 +37,7 @@
                 <QuestionItem :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion()"/>
               </v-col>
               <v-col class="h-100 pa-0" fluid>
-                <Editor v-show="true"/>
+                <Editor :QuestionNumber="QuestionNumber"/>
               </v-col>
             </v-row>
 
