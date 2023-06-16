@@ -6,8 +6,8 @@
             </v-col>
             <v-col align="center" class="v-col-1 offset-0">
                 <v-btn variant="tonal" rounded @click="this.$emit('CloseQuestion')">
-                     X
-                  </v-btn>
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
         <v-row>
