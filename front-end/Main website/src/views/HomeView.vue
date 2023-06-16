@@ -16,6 +16,11 @@
               <v-icon class="rounded-circle" icon="mdi-school" size="x-large"></v-icon>
             </template>
           </v-text-field>
+          <v-text-field v-model="ExamId" label="Exam ID" class="text-white" color="white" type="text" v-if="UserType === 'Student'">
+            <template v-slot:prepend>
+              <v-icon class="rounded-circle" icon="mdi-pound" size="x-large"></v-icon>
+            </template>
+          </v-text-field>
           <v-text-field v-model="Password" label="Password" class="text-white" color="white" type="password" v-if="UserType === 'Professor'">
             <template v-slot:prepend>
               <v-icon class="rounded-circle" icon="mdi-lock" size="x-large"></v-icon>
@@ -46,6 +51,7 @@ export default defineComponent({
   },
   data() {
     return {
+      ExamId: '',
       ID:'',
       Pass: '',
       UserType: 'Student',
