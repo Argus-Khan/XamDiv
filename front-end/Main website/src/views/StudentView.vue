@@ -21,8 +21,8 @@
                 <Counter/>
               </v-col>
               <v-col align="center" class="v-col-1 offset-3">
-                  <v-btn variant="tonal" rounded>
-                     Compile (3)
+                  <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" variant="tonal" @click="SendToCompiler" rounded>
+                     Compile ({{ 3 - Compiles[this.QuestionNumber - 1]}})
                   </v-btn>
               </v-col>
               <v-col align="center" class="v-col-1 offset-0">
@@ -79,7 +79,9 @@ export default defineComponent({
         return {
             ShowQuestion: true,
             ShowPopup: true,
-            QuestionNumber: 1
+            QuestionNumber: 1,
+            CompileDisabled: [false, false, false, false, false],
+            Compiles: [0, 0, 0, 0, 0]
         }
     },
 
@@ -93,6 +95,12 @@ export default defineComponent({
         ChangeQuestion(num) {
           this.QuestionNumber = num
           this.ShowQuestion = true
+        },
+        SendToCompiler() {
+          this.Compiles[this.QuestionNumber - 1]++
+          if (this.Compiles[this.QuestionNumber - 1] == 3) {
+            this.CompileDisabled[this.QuestionNumber - 1] = true
+          }
         }
     }
 });
