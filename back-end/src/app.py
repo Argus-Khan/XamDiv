@@ -57,17 +57,16 @@ def hash_pass(pswd):
 
 @app.get("/api/Proflogin")
 def home(Prof_Id: str , Pswd: str):
-    Database_Dir = os.path.abspath('..')+"/database"
-
+    Database_Dir = os.path.abspath('..')+"/database/Prof_Data.json"
+    token = hash_pass(str(datetime.now()))
     with open(Database_Dir, "r") as pd:
         Prof_Data = json.loads(pd.read())
+    pswd_hash = hash_pass(Pswd)
 
-    pswd_hash = hash_pass(paswd)
-
-    if Prof_Data.Pswd_hash == pswd_hash and Prof_Data.ID == Prof_Id:
+    if Prof_Data["Pswd_hash"] == pswd_hash and Prof_Data["ID"] == Prof_Id:
         return {"Response":"Access granted" , "AccessToken" : token}
     else:
-        return {"Response": "Invalid  Credentials"}
+        return {"Response": "Invalid  Credentials" , "hash":pswd_hash}
 
 @app.get("/api/Stdlogin")
 def home(Std_Id: str , Exam_Id: str):
