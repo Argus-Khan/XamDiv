@@ -1,9 +1,25 @@
 from fastapi import FastAPI, Path, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from datetime import datetime
 import os, subprocess, json, random, string, hashlib
 
 app = FastAPI()
+
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class Test(BaseModel):
     Exam_Id: str
@@ -20,6 +36,12 @@ class Exam(BaseModel):
     triesAllowed: int
     questionsNotes: str
     studentsIds: str
+
+class ExamAns(BaseModel):
+    Exam_Id: str
+    Std_Id: str
+    Sub_time: str
+
 
 def match_token():
     pass
@@ -109,4 +131,8 @@ def compileTest(Crnt_Test : Test):
         return {"Response": output.stderr}
     else:
         return {"Response": "Successful Compile", "Cdde_Dir":Code_dir}
+
+@app.post("/api/submitExam")
+def submitExam():
+    pass
 
