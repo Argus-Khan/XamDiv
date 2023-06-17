@@ -2,7 +2,9 @@
 
 <v-layout class="h-100" style="background-color: aliceblue; z-index: 10;">
   <Transition>
-  <v-container fluid v-show="ShowPopup" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100"><Note @close="TogglePopup()"/></v-container>
+  <v-container fluid v-show="ShowPopup" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100">
+    <Note :TimeGiven="this.Exam.time" @close="TogglePopup()"/>
+  </v-container>
   </Transition>
 
     <NavBar class="bg-grey-darken-3" @ChangeQuestion="ChangeQuestion"/>

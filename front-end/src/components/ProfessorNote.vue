@@ -59,6 +59,8 @@
     </v-component>
 </template>
 
+<script></script>
+
 <style scoped>
     * {
         font-family: Roboto Mono;

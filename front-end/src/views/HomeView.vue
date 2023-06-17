@@ -54,7 +54,6 @@ export default defineComponent({
     return {
       ExamID: '',
       ID:'',
-      Pass: '',
       UserType: 'Student',
       Password: ''
     };
@@ -62,19 +61,27 @@ export default defineComponent({
   methods: {
     Authenticate: function() {
       if(this.ID != '') {
-        axios.get('http://127.0.0.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
-        .then((response) => {
-          if (response.data.Response === 'GoodLuck!') {
-            this.$emit('login', this.ID, this.ExamID)
-            this.$router.push('/Student');
-          } else if (response.data.Response === 'Invaild Exam ID') {
-            alert(response.data.Response)
-          } else if (response.data.Response === 'Invaild Student ID') {
-            alert(response.data.Response)
+        if (this.UserType === 'Student') {
+          if (this.ExamID != '') {
+            axios.get('http://127.0.0.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
+            .then((response) => {
+              if (response.data.Response === 'GoodLuck!') {
+                this.$emit('login', this.ID, this.ExamID)
+                this.$router.push('/Student');
+              } else if (response.data.Response === 'Invaild Exam ID') {
+                alert(response.data.Response)
+              } else if (response.data.Response === 'Invaild Student ID') {
+                alert(response.data.Response)
+              }
+            })
+          } else {
+            alert('Please enter the Exam ID')
           }
-        })
+        } else {
+          alert('Professor page is not ready yet')
+        }
       } else {
-        alert('Please enter your credentials')
+        alert('Please enter your ID')
       }
     },
   }
