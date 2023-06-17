@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <router-view :StdID="ID" :ExamID="ExamID" @Login="Login"></router-view>
+      <router-view :StdID="ID" :ExamID="ExamID" @login="Login"></router-view>
     </v-main>
   </v-app>
 </template>

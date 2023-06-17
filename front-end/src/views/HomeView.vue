@@ -64,8 +64,12 @@ export default defineComponent({
       axios.get('http://127.0.0.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
       .then((response) => {
         if (response.data.Response === 'GoodLuck!') {
-          this.$emit('Login', this.ID, this.ExamID)
+          this.$emit('login', this.ID, this.ExamID)
           this.$router.push('/Student');
+        } else if (response.data.Response === 'Invaild Exam ID') {
+          alert(response.data.Response)
+        } else if (response.data.Response === 'Invaild Student ID') {
+          alert(response.data.Response)
         }
       })
     },

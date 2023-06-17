@@ -84,6 +84,10 @@ export default defineComponent({
             CompileDisabled: [false, false, false, false, false],
             Compiles: [0, 0, 0, 0, 0],
             StartCountdown: false,
+            Exam: {
+              questionsNotes: [{}],
+              studentsIds: []
+            },
         }
     },
 
@@ -108,6 +112,17 @@ export default defineComponent({
           }
         }
     },
+
+    watch: {
+      StdID: function(newval) {
+        console.log(newval)
+      }
+    },
+
+    created() {
+      axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
+      .then((request)=>{this.Exam = request.data})
+    }
 });
 </script>
 
