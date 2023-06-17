@@ -26,6 +26,7 @@
                 setTimeout(() => {
                     this.CountDown -= 1
                     this.countDownTimer()
+                    this.$emit('SyncCountdown', this.CountDown)
                     this.seconds = this.CountDown % 60
                     this.minutes = ((this.CountDown - this.seconds) / 60) % 60
                     this.hours = ((this.CountDown - (this.minutes * 60) - this.seconds) / 3600)

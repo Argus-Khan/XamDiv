@@ -16,28 +16,28 @@
       <v-row class="bg-grey-darken-3 pa-0 ma-0">
         <v-col align="center" class="v-col-1 offset-0">
           <v-btn variant="tonal" rounded @click="TogglePopup()">
-              Note
+            Note
           </v-btn>
         </v-col>
         <v-col align="center" class="v-col-2 offset-4">
-          <Counter :Time="this.Exam.time" :StartCountdown="this.StartCountdown"/>
+          <Counter :Time="this.Exam.time" :StartCountdown="this.StartCountdown" @SyncCountdown="SyncCountdown"/>
         </v-col>
         <v-col align="center" class="v-col-1 offset-3">
           <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" :loading="Compiling" variant="tonal" @click="SendToCompiler" rounded>
-              Compile ({{ this.Exam.triesAllowed - Compiles[this.QuestionNumber - 1]}})
+            Compile ({{ this.Exam.triesAllowed - Compiles[this.QuestionNumber - 1]}})
           </v-btn>
         </v-col>
         <v-col align="center" class="v-col-1 offset-0">
-            <SubmitButton/>
+          <SubmitButton @Submit="SubmitExam = true"/>
         </v-col>
       </v-row>
 
       <v-row class="h-75 pa-5 ma-0 bg-blue-grey-darken-4" fluid>
         <v-col class="pa-4 ma-0 bg-blue-grey-darken-3 rounded-xl" v-show="ShowQuestion">
-          <QuestionItem :Questions="this.Exam.questionsNotes" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion()"/>
+          <QuestionItem :Questions="this.Exam.questionsNotes" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion"/>
         </v-col>
         <v-col class="h-100 pa-0" fluid>
-          <Editor :Compiling="Compiling" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" @CompileFinish="FinishCompiling"/>
+          <Editor :Compiling="Compiling" :SubmitExam="SubmitExam" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" :Countdown="Countdown" @CompileFinish="FinishCompiling"/>
         </v-col>
       </v-row>
 
@@ -83,6 +83,7 @@ export default defineComponent({
             ShowQuestion: true,
             ShowPopup: true,
             Compiling: false,
+            SubmitExam: false,
             QuestionNumber: 1,
             CompileDisabled: [false, false, false, false, false],
             Compiles: [0, 0, 0, 0, 0],
@@ -91,7 +92,8 @@ export default defineComponent({
               questionsNotes: [{}],
               studentsIds: []
             },
-            Error: "Awaiting first compile..."
+            Error: "Awaiting first compile...",
+            Countdown: 0
         }
     },
 
@@ -119,10 +121,13 @@ export default defineComponent({
         FinishCompiling(error) {
           this.Error=error
           this.Compiling = false
-        }
+        },
+        SyncCountdown(num) {
+          this.Countdown = num
+        },
     },
 
-    created() {
+    beforeCreate() {
       axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
       .then((request)=>{this.Exam = request.data})
     }

@@ -45,6 +45,7 @@ export default{
           this.loading = false
         },
         Finish: function() {
+          this.$emit('Submit')
           this.$router.push('/end');
         }
       },

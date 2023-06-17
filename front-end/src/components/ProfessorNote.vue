@@ -9,7 +9,7 @@
                             <v-card class="rounded-s-lg Title text-white" text="Professor" variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-9 pl-0">
-                            <v-card class="rounded-e-lg" :text=this.Exam.professor variant="tonal"></v-card>
+                            <v-card class="rounded-e-lg" :text=this.Exam.Professor variant="tonal"></v-card>
                         </v-col>
                     </v-row>
                     <v-row class="pa-2">
@@ -17,7 +17,7 @@
                             <v-card class="rounded-s-lg Title text-white" text="Course" variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-4 pl-0">
-                            <v-card class="rounded-e-lg" text="Operating Systems" variant="tonal"></v-card>
+                            <v-card class="rounded-e-lg" :text=this.Exam.course variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-2 pr-0">
                             <v-card class="rounded-s-lg Title text-white" text="Date" variant="tonal"></v-card>
