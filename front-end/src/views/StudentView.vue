@@ -3,53 +3,53 @@
 <v-layout class="h-100" style="background-color: aliceblue; z-index: 10;">
   <Transition>
   <v-container fluid v-show="ShowPopup" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100">
-    <Note :TimeGiven="this.Exam.time" @close="TogglePopup()"/>
+    <Note :Exam="this.Exam" @close="TogglePopup()"/>
   </v-container>
   </Transition>
 
-    <NavBar class="bg-grey-darken-3" @ChangeQuestion="ChangeQuestion"/>
-      
-        <v-main>
-
-          <v-container fluid class="h-100 pa-0 ma-0">
-
-            <v-row class="bg-grey-darken-3 pa-0 ma-0">
-              <v-col align="center" class="v-col-1 offset-0">
-                  <v-btn variant="tonal" rounded @click="TogglePopup()">
-                     Note
-                  </v-btn>
-              </v-col>
-              <v-col align="center" class="v-col-2 offset-4">
-                <Counter :StartCountdown="StartCountdown"/>
-              </v-col>
-              <v-col align="center" class="v-col-1 offset-3">
-                  <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" variant="tonal" @click="SendToCompiler" rounded>
-                     Compile ({{ this.Exam.triesAllowed - Compiles[this.QuestionNumber - 1]}})
-                  </v-btn>
-              </v-col>
-              <v-col align="center" class="v-col-1 offset-0">
-                  <SubmitButton/>
-              </v-col>
-            </v-row>
-  
-            <v-row class="h-75 pa-5 ma-0 bg-blue-grey-darken-4" fluid>
-              <v-col class="pa-4 ma-0 bg-blue-grey-darken-3 rounded-xl" v-show="ShowQuestion">
-                <QuestionItem :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion()"/>
-              </v-col>
-              <v-col class="h-100 pa-0" fluid>
-                <Editor :QuestionNumber="QuestionNumber"/>
-              </v-col>
-            </v-row>
-
-            <v-row class="h-100 pa-0 ma-0" fluid>
-              <Console v-show="true"/> <!-- THIS COULD CAUSE AN UNNECESSARY SCROLLBAR -->
-            </v-row>
-  
-          </v-container>
-          
-        </v-main>
+  <NavBar class="bg-grey-darken-3" @ChangeQuestion="ChangeQuestion" :ID="this.StdID"/>
     
-    </v-layout>
+  <v-main>
+
+    <v-container fluid class="h-100 pa-0 ma-0">
+
+      <v-row class="bg-grey-darken-3 pa-0 ma-0">
+        <v-col align="center" class="v-col-1 offset-0">
+          <v-btn variant="tonal" rounded @click="TogglePopup()">
+              Note
+          </v-btn>
+        </v-col>
+        <v-col align="center" class="v-col-2 offset-4">
+          <Counter :Time="this.Exam.time" :StartCountdown="this.StartCountdown"/>
+        </v-col>
+        <v-col align="center" class="v-col-1 offset-3">
+          <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" :loading="Compiling" variant="tonal" @click="SendToCompiler" rounded>
+              Compile ({{ this.Exam.triesAllowed - Compiles[this.QuestionNumber - 1]}})
+          </v-btn>
+        </v-col>
+        <v-col align="center" class="v-col-1 offset-0">
+            <SubmitButton/>
+        </v-col>
+      </v-row>
+
+      <v-row class="h-75 pa-5 ma-0 bg-blue-grey-darken-4" fluid>
+        <v-col class="pa-4 ma-0 bg-blue-grey-darken-3 rounded-xl" v-show="ShowQuestion">
+          <QuestionItem :Questions="this.Exam.questionsNotes" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion()"/>
+        </v-col>
+        <v-col class="h-100 pa-0" fluid>
+          <Editor :Compiling="Compiling" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" @CompileFinish="FinishCompiling"/>
+        </v-col>
+      </v-row>
+
+      <v-row class="h-100 pa-0 ma-0" fluid>
+        <Console :Error="Error" v-show="true"/> <!-- THIS COULD CAUSE AN UNNECESSARY SCROLLBAR -->
+      </v-row>
+
+    </v-container>
+    
+  </v-main>
+    
+</v-layout>
     
 </template>
 
@@ -82,6 +82,7 @@ export default defineComponent({
         return {
             ShowQuestion: true,
             ShowPopup: true,
+            Compiling: false,
             QuestionNumber: 1,
             CompileDisabled: [false, false, false, false, false],
             Compiles: [0, 0, 0, 0, 0],
@@ -90,6 +91,7 @@ export default defineComponent({
               questionsNotes: [{}],
               studentsIds: []
             },
+            Error: "Awaiting first compile..."
         }
     },
 
@@ -112,13 +114,12 @@ export default defineComponent({
           if (this.Compiles[this.QuestionNumber - 1] == this.Exam.triesAllowed) {
             this.CompileDisabled[this.QuestionNumber - 1] = true
           }
+          this.Compiling = true
+        },
+        FinishCompiling(error) {
+          this.Error=error
+          this.Compiling = false
         }
-    },
-
-    watch: {
-      StdID: function(newval) {
-        console.log(newval)
-      }
     },
 
     created() {

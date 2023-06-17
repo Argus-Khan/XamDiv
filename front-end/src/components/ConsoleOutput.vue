@@ -1,22 +1,12 @@
 <template>
     <v-container fluid class="pa-2 ma-0 temp">
-        {{ consoleOutput }}
+        {{ Error }}
     </v-container>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            consoleOutput: "Awaiting first compile..."
-        }
-    },
-
-    methods: {
-        UpdateConsoleOutput(output) {
-            this.consoleOutput = output
-        }
-    }
+    props:['Error']
 }
 </script>
 

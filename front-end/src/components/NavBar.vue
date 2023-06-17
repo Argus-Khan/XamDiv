@@ -2,7 +2,7 @@
     <v-navigation-drawer expand-on-hover rail>
         
       <v-list>
-          <v-list-item prepend-avatar="./student_icon.jpg" title="Ron Ismaili" subtitle="130050">
+          <v-list-item prepend-avatar="./student_icon.jpg" title="Ron Ismaili" :subtitle="this.ID">
           </v-list-item>
         </v-list>
         
@@ -20,3 +20,9 @@
 
       </v-navigation-drawer>
 </template>
+
+<script>
+  export default {
+    props: ['ID']
+  }
+</script>

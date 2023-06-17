@@ -7,39 +7,48 @@
 </template>
  
 <script>
-     export default {
-         data () {
-             return {
-                 countDown: 7200,
-                 seconds: 0,
-                 minutes: 0,
-                 hours: 2,
-                 seconds_string: '00',
-                 minutes_string: '00',
-                 hours_string: '02'
-             }
-         },
-         props: ['StartCountdown'],
-         methods: {
-             countDownTimer () {
-                 if (this.countDown > 0) {
-                    setTimeout(() => {
-                        this.countDown -= 1
-                        this.countDownTimer()
-                        this.seconds = this.countDown % 60
-                        this.minutes = ((this.countDown - this.seconds) / 60) % 60
-                        this.hours = ((this.countDown - (this.minutes * 60) - this.seconds) / 3600)
-                        this.hours_string = this.hours.toString().padStart(2, '0')
-                        this.minutes_string = this.minutes.toString().padStart(2, '0')
-                        this.seconds_string = this.seconds.toString().padStart(2, '0')
-                     }, 1000)
-                 }
-             }
-         },
-         watch: {
+    export default {
+        data () {
+            return {
+                CountDown: 7200,
+                seconds: 0,
+                minutes: 0,
+                hours: 0,
+                seconds_string: '',
+                minutes_string: '',
+                hours_string: ''
+            }
+        },
+        props: ['StartCountdown', 'Time'],
+        methods: {
+            countDownTimer () {
+                if (this.CountDown > 0) {
+                setTimeout(() => {
+                    this.CountDown -= 1
+                    this.countDownTimer()
+                    this.seconds = this.CountDown % 60
+                    this.minutes = ((this.CountDown - this.seconds) / 60) % 60
+                    this.hours = ((this.CountDown - (this.minutes * 60) - this.seconds) / 3600)
+                    this.hours_string = this.hours.toString().padStart(2, '0')
+                    this.minutes_string = this.minutes.toString().padStart(2, '0')
+                    this.seconds_string = this.seconds.toString().padStart(2, '0')
+                    }, 1000)
+                }
+            }
+        },
+        watch: {
             StartCountdown: function() {
                 this.countDownTimer()
-                }  
-        },
-     }
+            },
+            Time: function() {
+                this.CountDown = this.Time
+                this.seconds = this.CountDown % 60
+                this.minutes = ((this.CountDown - this.seconds) / 60) % 60
+                this.hours = ((this.CountDown - (this.minutes * 60) - this.seconds) / 3600)
+                this.hours_string = this.hours.toString().padStart(2, '0')
+                this.minutes_string = this.minutes.toString().padStart(2, '0')
+                this.seconds_string = this.seconds.toString().padStart(2, '0')
+            }
+        }
+    }
 </script>
