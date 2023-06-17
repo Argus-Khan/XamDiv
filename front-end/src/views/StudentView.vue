@@ -22,7 +22,7 @@
               </v-col>
               <v-col align="center" class="v-col-1 offset-3">
                   <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" variant="tonal" @click="SendToCompiler" rounded>
-                     Compile ({{ 3 - Compiles[this.QuestionNumber - 1]}})
+                     Compile ({{ this.Exam.triesAllowed - Compiles[this.QuestionNumber - 1]}})
                   </v-btn>
               </v-col>
               <v-col align="center" class="v-col-1 offset-0">
@@ -107,7 +107,7 @@ export default defineComponent({
         },
         SendToCompiler() {
           this.Compiles[this.QuestionNumber - 1]++
-          if (this.Compiles[this.QuestionNumber - 1] == 3) {
+          if (this.Compiles[this.QuestionNumber - 1] == this.Exam.triesAllowed) {
             this.CompileDisabled[this.QuestionNumber - 1] = true
           }
         }
