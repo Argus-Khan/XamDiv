@@ -28,7 +28,7 @@ class Test(BaseModel):
     Code: str
 
 class Exam(BaseModel):
-    rofessor: str
+    professor: str
     course: str
     date: str
     marks: int
@@ -42,7 +42,7 @@ class Exam(BaseModel):
 class ExamAns(BaseModel):
     Exam_Id: str
     Std_Id: str
-    Sub_time: str
+    Sub_time: int
     Code_Ans: str
 
 
@@ -55,14 +55,19 @@ def hash_pass(pswd):
     return hs.hexdigest()
 
 
-
 @app.get("/api/Proflogin")
 def home(Prof_Id: str , Pswd: str):
-            return {"Response":"GoodLuck!" , "AccessToken" : token}
-            else:
-                return {"Response": "Invaild Student ID"}
+    Database_Dir = os.path.abspath('..')+"/database"
+
+    with open(Database_Dir, "r") as pd:
+        Prof_Data = json.loads(pd.read())
+
+    pswd_hash = hash_pass(paswd)
+
+    if Prof_Data.Pswd_hash == pswd_hash and Prof_Data.ID == Prof_Id:
+        return {"Response":"Access granted" , "AccessToken" : token}
     else:
-        return {"Response": "Invaild Exam ID"}
+        return {"Response": "Invalid  Credentials"}
 
 @app.get("/api/Stdlogin")
 def home(Std_Id: str , Exam_Id: str):
@@ -79,9 +84,9 @@ def home(Std_Id: str , Exam_Id: str):
                     json.dump(Std_Data, xd)
                 return {"Response":"GoodLuck!" , "AccessToken" : token}
             else:
-                return {"Response": "Invaild Student ID"}
+                return {"Response": "Invalid Student ID"}
     else:
-        return {"Response": "Invaild Exam ID"}
+        return {"Response": "Invalid Exam ID"}
 
 
 @app.get("/api/getExam")
@@ -91,7 +96,7 @@ def exam(Exam_Id: str):
         with open(Std_Dir+"/Exam.json","r") as xd:
             return json.loads(xd.read())
     else:
-        return {"Response": "Invaild Exam ID"}
+        return {"Response": "Invalid Exam ID"}
 
 
 @app.post("/api/makeExam")
@@ -114,7 +119,7 @@ def makeExam(Crnt_Exam : Exam):
 
     for std in students_list:
         os.makedirs(Exam_Dir+"/"+std)
-        students_data[std] = {"Attended" : False , "Marks": 0 , "Questions_Attemped": 0 , "Status": "Not attemped", "Time_Taken":0, "Access_Token" : "", "Additioanl_time_awarded" : 0}
+        students_data[std] = {"Attended" : False , "Marks": 0 , "Questions_Attempted": 0 , "Status": "Not attempted", "Time_Taken":0, "Access_Token" : "", "Additional_time_awarded" : 0}
 
     Crnt_Exam.studentsIds = students_list
     Crnt_Exam.questionsNotes = question_data
@@ -145,7 +150,7 @@ def compileTest(Crnt_Test : Test):
     if (output.stderr):
         return {"Response": output.stderr}
     else:
-        return {"Response": "Successful Compile", "Cdde_Dir":Code_dir}
+        return {"Response": "Successful Compile", "Code_Dir":Code_dir}
 
 @app.post("/api/submitExam")
 def submitExam(Crnt_Ans: ExamAns):
@@ -158,8 +163,8 @@ def submitExam(Crnt_Ans: ExamAns):
 
     for code , i in zip(Crnt_Ans.Code_Ans, range(1,len(Crnt_Ans.Code_Ans)+1)):
 
-        if len(code) > 1 :
-            Std_Data[Crnt_Ans.Std_Id]["Questions_Attemped"] += 1
+        if len(code) > 0 :
+            Std_Data[Crnt_Ans.Std_Id]["Questions_Attempted"] += 1
 
         Crnt_Src = Exam_Dir+"/"+Crnt_Ans.Std_Id+"/Q"+str(i)+".cpp"
         with open(Crnt_Src,"w") as fl:
