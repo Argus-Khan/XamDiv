@@ -67,18 +67,20 @@ def makeExam(Crnt_Exam : Exam):
         Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+ExamId
     os.makedirs(Exam_Dir)
 
-
-
     students_list = Crnt_Exam.studentsIds.replace(" ","")
     students_list = students_list.split(',')
     students_data = {}
-
+    question_list = Crnt_Exam.questionsNotes.split('`')
+    question_data = []
+    for qz in range(0,len(question_list),3):
+        question_data.append({"Q":question_list[qz],"N":question_list[qz+1],"M":int(question_list[qz+2])})
 
     for std in students_list:
         os.makedirs(Exam_Dir+"/"+std)
         students_data[std] = {"attended" : False , "marks": 0 , "Questions_Attemped": 0 , "Status": "Not attemped", "Time_Taken":0, "Access_Token" : "", "Additioanl_time_awarded" : 0}
 
     Crnt_Exam.studentsIds = students_list
+    Crnt_Exam.questionsNotes = question_data
     Crnt_Exam = dict(Crnt_Exam)
 
     with open(Exam_Dir + "/Students.json", "w") as  xd:
@@ -92,10 +94,10 @@ def makeExam(Crnt_Exam : Exam):
 
 @app.post("/api/compileTest")
 def compileTest(Crnt_Test : Test):
-    Compile_Dir = str(os.path.abspath('..'))+"/answers/" + Crnt_Test.Std_Id
-    if not os.path.exists(Compile_Dir):
-        os.makedirs(Compile_Dir)
-    Crnt_Src = Compile_Dir+"/Q"+str(Crnt_Test.Q_Num)+".cpp"
+    Code_dir = os.path.abspath('..')+"/database/Exams_Data/"+Crnt_Test.Exam_Id+"/"+Crnt_Test.Std_Id
+    if not os.path.exists(Code_dir):
+        os.makedirs(Code_dir)
+    Crnt_Src = Code_dir+"/Q"+str(Crnt_Test.Q_Num)+".cpp"
 
     with open(Crnt_Src,"w") as fl:
         fl.write(Crnt_Test.Code)
@@ -106,5 +108,5 @@ def compileTest(Crnt_Test : Test):
     if (output.stderr):
         return {"Response": output.stderr}
     else:
-        return {"Response": "Successful Compile"}
+        return {"Response": "Successful Compile", "Cdde_Dir":Code_dir}
 

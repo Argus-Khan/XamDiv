@@ -161,3 +161,4 @@ cython_debug/
 back-end/answers/
 front-end/Login page/node_modules/
 back-end/database/
+back-end/src/a.out
