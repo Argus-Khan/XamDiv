@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Path, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from datetime import datetime
-import os, subprocess, json, random, string, hashlib
+import os, subprocess, json, random, string, hashlib, time
 
 app = FastAPI()
 
@@ -33,10 +32,10 @@ class Exam(BaseModel):
     date: str
     marks: int
     time: int
-    start_time: int
+    startTime: int
     note: str
     triesAllowed: int
-    questionsNotes: str
+    questionsNotesMarks: str
     studentsIds: str
 
 class ExamAns(BaseModel):
@@ -58,7 +57,7 @@ def hash_pass(pswd):
 @app.get("/api/Proflogin")
 def home(Prof_Id: str , Pswd: str):
     Database_Dir = os.path.abspath('..')+"/database/Prof_Data.json"
-    token = hash_pass(str(datetime.now()))
+    token = hash_pass(str(time.time()))
     with open(Database_Dir, "r") as pd:
         Prof_Data = json.loads(pd.read())
     pswd_hash = hash_pass(Pswd)
@@ -68,31 +67,35 @@ def home(Prof_Id: str , Pswd: str):
     else:
         return {"Response": "Invalid  Credentials" , "hash":pswd_hash}
 
-@app.get("/api/Stdlogin")
+@app.put("/api/Stdlogin")
 def home(Std_Id: str , Exam_Id: str):
     Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
     if(os.path.exists(Exam_Dir)):
-        with open(Exam_Dir+"/Students.json","r") as xd:
-            Std_Data = json.loads(xd.read())
-            if Std_Id in Std_Data:
-                token = hash_pass(str(datetime.now()))
-                Std_Data[Std_Id]["Access_Token"] = token
-                Std_Data[Std_Id]["Attended"] = True
-                Std_Data[Std_Id]["Status"] = "Logged In"
-                with open(Exam_Dir + "/Students.json", "w") as  xd:
-                    json.dump(Std_Data, xd)
-                return {"Response":"GoodLuck!" , "AccessToken" : token}
-            else:
-                return {"Response": "Invalid Student ID"}
+        with open(Exam_Dir+"/Exam.json","r") as xd:
+            Exam_Data = json.loads(xd.read())
+        with open(Exam_Dir+"/Students.json","r") as sd:
+            Std_Data = json.loads(sd.read())
+        if Std_Id in Std_Data:
+            token = hash_pass(str(time.time()))
+            time_left = (Exam_Data["time"] * 60) - (time.time() - Exam_Data["startTime"])
+            time_left = round(time_left,0)
+            Std_Data[Std_Id]["Access_Token"] = token
+            Std_Data[Std_Id]["Attended"] = True
+            Std_Data[Std_Id]["Status"] = "Logged In"
+            with open(Exam_Dir + "/Students.json", "w") as  xd:
+                json.dump(Std_Data, xd)
+            return {"Response":"GoodLuck!" , "accessToken" : token, "timeLeft": time_left}
+        else:
+            return {"Response": "Invalid Student ID"}
     else:
         return {"Response": "Invalid Exam ID"}
 
 
 @app.get("/api/getExam")
 def exam(Exam_Id: str):
-    Std_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
-    if(os.path.exists(Std_Dir)):
-        with open(Std_Dir+"/Exam.json","r") as xd:
+    Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
+    if(os.path.exists(Exam_Dir)):
+        with open(Exam_Dir+"/Exam.json","r") as xd:
             return json.loads(xd.read())
     else:
         return {"Response": "Invalid Exam ID"}
@@ -111,7 +114,7 @@ def makeExam(Crnt_Exam : Exam):
     students_list = Crnt_Exam.studentsIds.replace(" ","")
     students_list = students_list.split('`')
     students_data = {}
-    question_list = Crnt_Exam.questionsNotes.split('`')
+    question_list = Crnt_Exam.questionsNotesMarks.split('`')
     question_data = []
     for qz in range(0,len(question_list),3):
         question_data.append({"Q":question_list[qz],"N":question_list[qz+1],"M":int(question_list[qz+2])})
@@ -121,7 +124,7 @@ def makeExam(Crnt_Exam : Exam):
         students_data[std] = {"Attended" : False , "Marks": 0 , "Questions_Attempted": 0 , "Status": "Not attempted", "Time_Taken":0, "Access_Token" : "", "Additional_time_awarded" : 0}
 
     Crnt_Exam.studentsIds = students_list
-    Crnt_Exam.questionsNotes = question_data
+    Crnt_Exam.questionsNotesMarks = question_data
     Crnt_Exam = dict(Crnt_Exam)
 
     with open(Exam_Dir + "/Students.json", "w") as  xd:
@@ -131,6 +134,21 @@ def makeExam(Crnt_Exam : Exam):
         json.dump(Crnt_Exam, xd)
 
     return {"Response": "Exam made successfully", "ExamID" : ExamId}
+
+@app.put("/api/startExam")
+def startExam(Exam_Id : str):
+    Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
+    if(os.path.exists(Exam_Dir)):
+        with open(Exam_Dir+"/Exam.json","r") as xd:
+            Exam_Data = json.loads(xd.read())
+        Exam_Data["startTime"] = time.time()
+        with open(Exam_Dir + "/Exam.json", "w") as  xd:
+            json.dump(Exam_Data, xd)
+        return {"Response": "Exam Started"}
+    else:
+        return {"Response": "Invalid Exam ID"}
+
+
 
 
 @app.post("/api/compileTest")
