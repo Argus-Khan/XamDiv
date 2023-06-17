@@ -61,6 +61,7 @@ import Console from "../components/ConsoleOutput.vue"
 import Note from "../components/ProfessorNote.vue"
 import QuestionItem from "../components/QuestionItem.vue"
 import SubmitButton from "../components/SubmitButton.vue"
+import axios from 'axios'
 
 export default defineComponent({
     name: 'StudentPageView',
@@ -82,9 +83,11 @@ export default defineComponent({
             QuestionNumber: 1,
             CompileDisabled: [false, false, false, false, false],
             Compiles: [0, 0, 0, 0, 0],
-            StartCountdown: false
+            StartCountdown: false,
         }
     },
+
+    props: ['StdID', 'ExamID'],
 
     methods: {
         ToggleQuestion() {
@@ -104,7 +107,7 @@ export default defineComponent({
             this.CompileDisabled[this.QuestionNumber - 1] = true
           }
         }
-    }
+    },
 });
 </script>
 

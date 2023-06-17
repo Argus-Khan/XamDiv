@@ -6,22 +6,22 @@
       </v-col>
       <v-col align="center" class="v-col-4 offset-4 rounded-xl h-50 hidden-sm-and-down pa-10">
         <p class="text-white text-h4">XamDiv Login</p>
-        <v-form @submit.prevent="SendToExam" class="py-8 h-100">
+        <v-form @submit.prevent="Authenticate" class="py-8 h-100">
           <v-btn-toggle class="w-100 mb-8" v-model="UserType" mandatory>
               <v-btn text class="text-white rounded-pill mx-4" style="width: 40%; height: 100%;" value="Student">Student</v-btn>
               <v-btn text class="text-white rounded-pill mx-6" style="width: 40%; height: 100%;" value="Professor">Professor</v-btn>
           </v-btn-toggle>
-          <v-text-field v-model="ID" type="text" label="User ID" class="text-white" color="white">
+          <v-text-field required v-model="ID" type="text" label="User ID" class="text-white" color="white">
             <template v-slot:prepend>
               <v-icon class="rounded-circle" icon="mdi-school" size="x-large"></v-icon>
             </template>
           </v-text-field>
-          <v-text-field v-model="ExamId" label="Exam ID" class="text-white" color="white" type="text" v-if="UserType === 'Student'">
+          <v-text-field required v-model="ExamID" label="Exam ID" class="text-white" color="white" type="text" v-if="UserType === 'Student'">
             <template v-slot:prepend>
               <v-icon class="rounded-circle" icon="mdi-pound" size="x-large"></v-icon>
             </template>
           </v-text-field>
-          <v-text-field v-model="Password" label="Password" class="text-white" color="white" type="password" v-if="UserType === 'Professor'">
+          <v-text-field required v-model="Password" label="Password" class="text-white" color="white" type="password" v-if="UserType === 'Professor'">
             <template v-slot:prepend>
               <v-icon class="rounded-circle" icon="mdi-lock" size="x-large"></v-icon>
             </template>
@@ -36,6 +36,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import axios from 'axios';
 
 // Components
 
@@ -51,7 +52,7 @@ export default defineComponent({
   },
   data() {
     return {
-      ExamId: '',
+      ExamID: '',
       ID:'',
       Pass: '',
       UserType: 'Student',
@@ -59,9 +60,15 @@ export default defineComponent({
     };
   },
   methods: {
-    SendToExam: function() {
-      this.$router.push('/Student');
-    }
+    Authenticate: function() {
+      axios.get('http://127.0.0.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
+      .then((response) => {
+        if (response.data.Response === 'GoodLuck!') {
+          this.$emit('Login', this.ID, this.ExamID)
+          this.$router.push('/Student');
+        }
+      })
+    },
   }
 });
 </script>
