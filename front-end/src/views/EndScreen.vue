@@ -1,8 +1,13 @@
 <template>
     <div class=" h-100 bg-blue-grey-darken-3">
         <div class="center">
-            <h1>End of demo</h1>
-            <p>Thank you for your attention!</p>
+            <v-btn v-show="!showEnd" variant="tonal" size="x-large" rounded @click="showEnd = !showEnd">
+                     Click me!
+            </v-btn>
+            <div v-show="showEnd">
+                <h1>End of demo</h1>
+                <p>Thank you for your attention!</p>
+            </div>
         </div>
     </div>
 </template>
@@ -18,10 +23,14 @@ export default defineComponent({
 
     data() {
         return {
+            showEnd: false
         }
     },
 
     methods: {
+        ToggleShow() {
+
+        }
     }
 });
 </script>
