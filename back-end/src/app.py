@@ -83,7 +83,7 @@ def home(Std_Id: str , Exam_Id: str):
             Std_Data[Std_Id]["Start_Time"] = str(time.ctime())
             with open(Exam_Dir + "/Students.json", "w") as  xd:
                 json.dump(Std_Data, xd)
-            return {"Response":"Access granted" , "accessToken" : token, "timeLeft": time_left}
+            return {"Response":"Access granted" , "accessToken" : token}
         else:
             return {"Response": "Invalid Student ID"}
     else:
