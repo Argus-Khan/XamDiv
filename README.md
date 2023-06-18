@@ -1,6 +1,6 @@
 # XamDiv (still writing it -ron)
 A portable and easy to use exam taking device (abbreviated to XamDiv) that makes the lives of professors and students easier by streamlining the exam taking process. <br>
-_[How to setup XamDiv](._)._
+_[How to setup XamDiv](https://github.com/Argus-Khan/XamDiv/tree/main#installation-and-setup)._
 
 ## Functionality
 For the XamDiv to work it only needs to be connected to power. Once it is turned on it will autostart all the processes which are required for proper functioning, all that is left to do for students and professors is to connect to XamDiv's network using WiFi. Upon connection to the device, <ins>(the default browser will open the website with the URL www.XamDix.edu)/<ins>.
