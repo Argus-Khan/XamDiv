@@ -1,9 +1,6 @@
 <template>
     <div class="text-center">
-        <v-chip variant="tonal" size="large" class="ml-13 text-center" v-if="this.CountDown >= 601">
-            {{ hours_string }} : {{ minutes_string }} : {{ seconds_string }}
-        </v-chip>
-        <v-chip variant="tonal" size="large" class="ml-13 text-center bg-red" v-if="this.CountDown <= 600">
+        <v-chip variant="tonal" size="large" class="ml-13 text-center" :class="{'text-red': this.CountDown <600}">
             {{ hours_string }} : {{ minutes_string }} : {{ seconds_string }}
         </v-chip>
     </div>
@@ -13,7 +10,7 @@
     export default {
         data () {
             return {
-                CountDown: 7200,
+                CountDown: 10,
                 seconds: 0,
                 minutes: 0,
                 hours: 0,

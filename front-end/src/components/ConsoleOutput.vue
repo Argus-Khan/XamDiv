@@ -1,8 +1,6 @@
 <template>
     <v-container fluid class="pa-2 ma-0 temp">
-        <p class="console-text-awaiting" v-if="this.Error === 'Awaiting first compile...'">{{ Error }}</p>
-        <p class="console-text-success" v-if="this.Error === 'Successful Compile'">{{ Error }}</p> 
-        <p class="console-text-error" v-if="this.Error !== 'Successful Compile' && this.Error !== 'Awaiting first compile...'">{{ Error }}</p>
+        <p class="console-text-error" :class="{'console-text-awaiting': Error === 'Awaiting first compile...', 'console-text-success': Error === 'Successful Compile'}">{{ Error }}</p>
 </v-container>
 </template>
 
@@ -20,10 +18,10 @@ export default {
     border-top: 5px solid #424242;
 }
 .console-text-awaiting {
-    color: white;
+    color: white !important; 
 }
 .console-text-success {
-    color: #04ff00;
+    color: #04ff00 !important;
 }
 .console-text-error {
     color: red;
