@@ -9,7 +9,7 @@
                             <v-card class="rounded-s-lg Title text-white" text="Professor" variant="tonal"></v-card>
                         </v-col>
                         <v-col class="v-col-9 pl-0">
-                            <v-card class="rounded-e-lg" :text=this.Exam.Professor variant="tonal"></v-card>
+                            <v-card class="rounded-e-lg" :text=this.Exam.professor variant="tonal"></v-card>
                         </v-col>
                     </v-row>
                     <v-row class="pa-2">

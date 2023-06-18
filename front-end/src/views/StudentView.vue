@@ -129,7 +129,7 @@ export default defineComponent({
 
     beforeCreate() {
       axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
-      .then((request)=>{this.Exam = request.data})
+      .then((request)=>{this.Exam = request.data.examData})
     }
 });
 </script>
