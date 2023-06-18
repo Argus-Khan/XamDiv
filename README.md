@@ -1,19 +1,43 @@
-# XamDiv
-## Project idea
-
-A "secure" portable exam taking device (XamDiv) where the professor plugs it in and the device does the rest.
-
-## User Interface
-
-[DEMO](https://www.figma.com/proto/UfVC45NWZMSGn9mdEnhyEO/XamDiv?type=design&node-id=9-88&scaling=min-zoom&page-id=7%3A15&starting-point-node-id=9%3A88) |
-[Detailed view](https://www.figma.com/file/UfVC45NWZMSGn9mdEnhyEO/XamDiv?type=design&node-id=7%3A15&t=cKvBjVW5s9DpsngA-1)
+# XamDiv (still writing it -ron)
+A portable and easy to use exam taking device (abbreviated to XamDiv) that makes the lives of professors and students easier by streamlining the exam taking process. <br>
+_[How to setup XamDiv](#installation-and-setup)._
 
 ## Functionality
-- The users (professors and students) can connect to the device's network (Wi-Fi) and access the XamDiv webapp.
-- Students can take exams on the webapp.
-- Professors can create, delete, modify, view and conduct exams. 
- 
-## Technical specifiction
+For the XamDiv to work it only needs to be connected to power. Once it is turned on it will autostart all the processes which are required for proper functioning, all that is left to do for students and professors is to connect to XamDiv's network using WiFi. Upon connection to the device, <ins>(the default browser will open the website with the URL www.XamDix.edu)/<ins>.
+
+## Current limitations
+- The professors can only view submitted exams but not create new ones via the website.
+- For creating and starting exams, it is necessary to manually go through the api. It is not implemented within the website.
+- Creating an exam with more/less than 5 questions doesn't work.
+- The console (Compiling the code within the website) works only on Linux and it does not work on Windows (but since everything is hosted on the Raspberry Pi this doesn't matter).
+
+## Technical specification
+
+## Installation and setup
+Requirements:
+- Python (VERSION)
+- Node.js (VERSION)
+- Vue CLI (VERSION)
+
+**Installing the needed python libraries:** <br>
+`pip install fastapi` <br>
+`pip install uvicorn` <br>
+
+<ins>**MAYBE ADD A VENV**</ins>
+
+**How to run the front-end:** <br>
+`cd front-end` <br>
+`npm run serve` <br>
+
+**How to run the back-end:** <br>
+`cd back-end/src` <br>
+`uvicorn app:app --reload` <br>
+
+**How to create a new exam**
+To be able to enter as a student
+
+
+
 
 **Login screen** _(LANDING PAGE)_
 

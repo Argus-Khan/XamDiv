@@ -12,13 +12,14 @@
             </v-col>
             <v-divider class="border-opacity-100"></v-divider>
         </v-row>
-        <v-row>
+        <v-row class="h-50">
             <v-col>
                     {{ Questions[num].Q }}
             </v-col>
         </v-row>
-        <v-row>
+        <v-row class="h-25">
             <v-col>
+                <v-divider class="border-opacity-100"></v-divider>
                 {{ Questions[num].N }}
             </v-col>
         </v-row>
