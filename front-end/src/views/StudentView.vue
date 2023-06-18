@@ -34,7 +34,7 @@
 
       <v-row class="h-75 pa-5 ma-0 bg-blue-grey-darken-4" fluid>
         <v-col class="pa-4 ma-0 bg-blue-grey-darken-3 rounded-xl" v-show="ShowQuestion">
-          <QuestionItem :Questions="this.Exam.questionsNotes" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion"/>
+          <QuestionItem :Questions="this.Exam.questionsNotesMarks" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion"/>
         </v-col>
         <v-col class="h-100 pa-0" fluid>
           <Editor :Compiling="Compiling" :SubmitExam="SubmitExam" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" :Countdown="Countdown" @CompileFinish="FinishCompiling"/>
@@ -89,7 +89,7 @@ export default defineComponent({
             Compiles: [0, 0, 0, 0, 0],
             StartCountdown: false,
             Exam: {
-              questionsNotes: [{}],
+              questionsNotesMarks: [{}],
               studentsIds: []
             },
             Error: "Awaiting first compile...",
@@ -129,7 +129,8 @@ export default defineComponent({
 
     beforeCreate() {
       axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
-      .then((request)=>{this.Exam = request.data.examData})
+      .then((request)=>{this.Exam = request.data.examData; console.log(request.data.examData)})
+      console.log(this.Exam)
     }
 });
 </script>
