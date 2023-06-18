@@ -25,7 +25,7 @@ export default {
         Q_Num: this.QuestionNumber,
         Code: JSON.stringify(this.EditorList[this.QuestionNumber - 1])
       }).then((response) => {
-        this.$emit('CompileFinish', response.data)
+        this.$emit('CompileFinish', response.data.Response)
       })
     },
     SubmitExam: function() {
