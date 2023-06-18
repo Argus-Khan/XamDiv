@@ -35,7 +35,7 @@ export default {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
         Sub_time: this.TimeTaken,
-        Code: this.FullCode
+        Code_Ans: this.FullCode
       })
       .then((response)=>{console.log(response)})
       .catch((error)=>{console.log(error)})
