@@ -76,7 +76,8 @@ export default defineComponent({
             alert('Please enter the Exam ID')
           }
         } else {
-          alert('Professor page is not ready yet')
+          axios.get('http://localhost:8000/api/Proflogin?Prof_Id=' + this.ID + '&Pswd=' + this.Password)
+          .then((response) => {alert(response.data.Response)})
         }
       } else {
         alert('Please enter your ID')

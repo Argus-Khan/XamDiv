@@ -41,8 +41,8 @@
             StartCountdown: function() {
                 this.countDownTimer()
             },
-            Time: function() {
-                this.CountDown = this.Time
+            TimeLeft: function() {
+                this.CountDown = this.TimeLeft
                 this.seconds = this.CountDown % 60
                 this.minutes = ((this.CountDown - this.seconds) / 60) % 60
                 this.hours = ((this.CountDown - (this.minutes * 60) - this.seconds) / 3600)

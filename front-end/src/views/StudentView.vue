@@ -3,7 +3,7 @@
 <v-layout class="h-100" style="background-color: aliceblue; z-index: 10;">
   <Transition>
   <v-container fluid v-show="ShowPopup" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100">
-    <Note :Exam="this.Exam" @close="TogglePopup()"/>
+    <Note :Exam="this.Exam" @close="this.ShowPopup = false"/>
   </v-container>
   </Transition>
 
@@ -15,12 +15,12 @@
 
       <v-row class="bg-grey-darken-3 pa-0 ma-0">
         <v-col align="center" class="v-col-1 offset-0">
-          <v-btn variant="tonal" rounded @click="TogglePopup()">
+          <v-btn variant="tonal" rounded @click="TogglePopup">
             Note
           </v-btn>
         </v-col>
         <v-col align="center" class="v-col-2 offset-4">
-          <Counter :Time="this.Exam.time" :StartCountdown="this.StartCountdown" @SyncCountdown="SyncCountdown"/>
+          <Counter :TimeLeft="TimeLeft" :StartCountdown="StartCountdown" @SyncCountdown="CalcTimeTaken"/>
         </v-col>
         <v-col align="center" class="v-col-1 offset-3">
           <v-btn :disabled="CompileDisabled[this.QuestionNumber - 1]" :loading="Compiling" variant="tonal" @click="SendToCompiler" rounded>
@@ -37,7 +37,7 @@
           <QuestionItem :Questions="this.Exam.questionsNotesMarks" :QuestionNumber="QuestionNumber" @CloseQuestion="ToggleQuestion"/>
         </v-col>
         <v-col class="h-100 pa-0" fluid>
-          <Editor :Compiling="Compiling" :SubmitExam="SubmitExam" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" :Countdown="Countdown" @CompileFinish="FinishCompiling"/>
+          <Editor :Compiling="Compiling" :SubmitExam="SubmitExam" :QuestionNumber="QuestionNumber" :ExamID="ExamID" :StdID="StdID" :TimeTaken="TimeTaken" @CompileFinish="FinishCompiling"/>
         </v-col>
       </v-row>
 
@@ -93,7 +93,8 @@ export default defineComponent({
               studentsIds: []
             },
             Error: "Awaiting first compile...",
-            Countdown: 0
+            TimeTaken: 0,
+            TimeLeft: 0
         }
     },
 
@@ -122,15 +123,14 @@ export default defineComponent({
           this.Error=error
           this.Compiling = false
         },
-        SyncCountdown(num) {
-          this.Countdown = num
+        CalcTimeTaken(num) {
+          this.TimeTaken = this.TimeLeft - num
         },
     },
 
     beforeCreate() {
       axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
-      .then((request)=>{this.Exam = request.data.examData; console.log(request.data.examData)})
-      console.log(this.Exam)
+      .then((response)=>{this.Exam = response.data.examData; this.TimeLeft = response.data.timeLeft;})
     }
 });
 </script>

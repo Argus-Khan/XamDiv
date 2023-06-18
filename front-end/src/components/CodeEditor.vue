@@ -16,7 +16,7 @@ export default {
       FullCode: ''
     }
   },
-  props: ['QuestionNumber', 'SubmitExam', 'Compiling', 'ExamID', 'StdID', 'SubmitQuestion', 'Countdown'],
+  props: ['QuestionNumber', 'SubmitExam', 'Compiling', 'ExamID', 'StdID', 'SubmitQuestion', 'TimeTaken'],
   watch: {
     Compiling: function() {
       axios.post('http://localhost:8000/api/compileTest', {
@@ -34,7 +34,7 @@ export default {
       axios.post('http://localhost:8000/api/submitExam', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
-        Sub_time: String(this.Countdown),
+        Sub_time: this.TimeTaken,
         Code: this.FullCode
       })
       .then((response)=>{console.log(response)})
