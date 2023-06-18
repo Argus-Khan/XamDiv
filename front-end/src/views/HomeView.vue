@@ -63,14 +63,12 @@ export default defineComponent({
       if(this.ID != '') {
         if (this.UserType === 'Student') {
           if (this.ExamID != '') {
-            axios.get('http://127.0.0.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
+            axios.put('http://localhost:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
             .then((response) => {
-              if (response.data.Response === 'GoodLuck!') {
+              if (response.data.Response === 'Access granted') {
                 this.$emit('login', this.ID, this.ExamID)
                 this.$router.push('/Student');
-              } else if (response.data.Response === 'Invaild Exam ID') {
-                alert(response.data.Response)
-              } else if (response.data.Response === 'Invaild Student ID') {
+              } else {
                 alert(response.data.Response)
               }
             })
