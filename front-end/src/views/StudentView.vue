@@ -2,8 +2,8 @@
 
 <v-layout class="h-100" style="background-color: aliceblue; z-index: 10;">
   <Transition>
-  <v-container fluid v-show="ShowPopup" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100">
-    <Note :Exam="this.Exam" @close="this.ShowPopup = false"/>
+  <v-container fluid v-show="ShowNote" style="position: absolute; left: 0; top: 0;  z-index: 1000; background-color: #000d;" class="h-100">
+    <Note :Exam="this.Exam" @close="this.ShowNote = false"/>
   </v-container>
   </Transition>
 
@@ -15,7 +15,7 @@
 
       <v-row class="bg-grey-darken-3 pa-0 ma-0">
         <v-col align="center" class="v-col-1 offset-0">
-          <v-btn variant="tonal" rounded @click="TogglePopup">
+          <v-btn variant="tonal" rounded @click="this.ShowNote = true">
             Note
           </v-btn>
         </v-col>
@@ -81,7 +81,7 @@ export default defineComponent({
     data() {
         return {
             ShowQuestion: true,
-            ShowPopup: true,
+            ShowNote: true,
             Compiling: false,
             SubmitExam: false,
             QuestionNumber: 1,
@@ -103,10 +103,6 @@ export default defineComponent({
     methods: {
         ToggleQuestion() {
           this.ShowQuestion = !this.ShowQuestion
-        },
-        TogglePopup() {
-          this.ShowPopup = !this.ShowPopup
-          this.StartCountdown = true
         },
         ChangeQuestion(num) {
           this.QuestionNumber = num

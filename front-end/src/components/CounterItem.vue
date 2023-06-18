@@ -19,7 +19,7 @@
                 hours_string: ''
             }
         },
-        props: ['StartCountdown', 'Time'],
+        props: ['StartCountdown', 'TimeLeft'],
         methods: {
             countDownTimer () {
                 if (this.CountDown > 0) {
@@ -38,9 +38,6 @@
             }
         },
         watch: {
-            StartCountdown: function() {
-                this.countDownTimer()
-            },
             TimeLeft: function() {
                 this.CountDown = this.TimeLeft
                 this.seconds = this.CountDown % 60
@@ -50,6 +47,9 @@
                 this.minutes_string = this.minutes.toString().padStart(2, '0')
                 this.seconds_string = this.seconds.toString().padStart(2, '0')
             }
+        },
+        created () {
+            this.countDownTimer()
         }
     }
 </script>

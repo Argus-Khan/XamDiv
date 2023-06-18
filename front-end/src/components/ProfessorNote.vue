@@ -65,7 +65,7 @@
         props: ['Exam'],
         methods: {
             getTime() {
-                return ((this.Exam.time - (this.Exam.time % 60)) / 60) + " minutes";
+                return this.Exam.time + " minutes";
             }
         }
     }
