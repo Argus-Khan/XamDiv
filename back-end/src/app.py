@@ -71,20 +71,19 @@ def home(Prof_Id: str , Pswd: str):
 def home(Std_Id: str , Exam_Id: str):
     Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
     if(os.path.exists(Exam_Dir)):
-        with open(Exam_Dir+"/Exam.json","r") as xd:
-            Exam_Data = json.loads(xd.read())
         with open(Exam_Dir+"/Students.json","r") as sd:
             Std_Data = json.loads(sd.read())
         if Std_Id in Std_Data:
+            if Std_Data[Std_Id]["Attended"] == True:
+                return {"Response": "Already Logged in"}
             token = hash_pass(str(time.time()))
-            time_left = (Exam_Data["time"] * 60) - (time.time() - Exam_Data["startTime"])
-            time_left = round(time_left,0)
             Std_Data[Std_Id]["Access_Token"] = token
             Std_Data[Std_Id]["Attended"] = True
             Std_Data[Std_Id]["Status"] = "Logged In"
+            Std_Data[Std_Id]["Start_Time"] = str(time.ctime())
             with open(Exam_Dir + "/Students.json", "w") as  xd:
                 json.dump(Std_Data, xd)
-            return {"Response":"GoodLuck!" , "accessToken" : token, "timeLeft": time_left}
+            return {"Response":"Access granted" , "accessToken" : token, "timeLeft": time_left}
         else:
             return {"Response": "Invalid Student ID"}
     else:
@@ -96,7 +95,10 @@ def exam(Exam_Id: str):
     Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Exam_Id
     if(os.path.exists(Exam_Dir)):
         with open(Exam_Dir+"/Exam.json","r") as xd:
-            return json.loads(xd.read())
+            Exam_Data = json.loads(xd.read())
+        time_left = (Exam_Data["time"] * 60) - (time.time() - Exam_Data["startTime"])
+        time_left = round(time_left,0)
+        return {"Response": "Exam fetched successfully", "examData": Exam_Data , "timeLeft":time_left}
     else:
         return {"Response": "Invalid Exam ID"}
 
@@ -121,7 +123,7 @@ def makeExam(Crnt_Exam : Exam):
 
     for std in students_list:
         os.makedirs(Exam_Dir+"/"+std)
-        students_data[std] = {"Attended" : False , "Marks": 0 , "Questions_Attempted": 0 , "Status": "Not attempted", "Time_Taken":0, "Access_Token" : "", "Additional_time_awarded" : 0}
+        students_data[std] = {"Attended" : False , "Marks": 0 , "Questions_Attempted": 0, "Status": "Not attempted", "Start_Time": "", "Time_Taken":0, "End_Time": "", "Access_Token" : "", "Additional_time_awarded" : 0}
 
     Crnt_Exam.studentsIds = students_list
     Crnt_Exam.questionsNotesMarks = question_data
@@ -174,8 +176,9 @@ def submitExam(Crnt_Ans: ExamAns):
     Exam_Dir = os.path.abspath('..')+"/database/Exams_Data/"+Crnt_Ans.Exam_Id
     with open(Exam_Dir+"/Students.json","r") as xd:
             Std_Data = json.loads(xd.read())
-    Std_Data[Crnt_Ans.Std_Id]["Time_Taken"] = Crnt_Ans.Sub_time
+    Std_Data[Crnt_Ans.Std_Id]["Time_Taken"] = round(Crnt_Ans.Sub_time,0)
     Std_Data[Crnt_Ans.Std_Id]["Status"] = "Submitted Answers"
+    Std_Data[Crnt_Ans.Std_Id]["End_Time"] = str(time.ctime())
     Crnt_Ans.Code_Ans = Crnt_Ans.Code_Ans.split('`')
 
     for code , i in zip(Crnt_Ans.Code_Ans, range(1,len(Crnt_Ans.Code_Ans)+1)):
