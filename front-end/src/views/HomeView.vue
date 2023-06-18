@@ -77,7 +77,13 @@ export default defineComponent({
           }
         } else {
           axios.get('http://localhost:8000/api/Proflogin?Prof_Id=' + this.ID + '&Pswd=' + this.Password)
-          .then((response) => {alert(response.data.Response)})
+          .then((response) => {
+            if (response.data.Response === 'Access granted') {
+              this.$router.push('/database');
+            } else {
+              alert(response.data.Response)
+            }
+          })
         }
       } else {
         alert('Please enter your ID')
