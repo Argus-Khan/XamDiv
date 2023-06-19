@@ -44,7 +44,7 @@ For creating the project we have used the following technologies: <br>
 
 **Installing the needed Node.js packages:** <br>
 `cd front-end` <br>
-`cd npm install` <br>
+`npm install` <br>
 
 **How to run the back-end:** <br>
 `cd back-end/src` <br>
