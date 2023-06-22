@@ -7,7 +7,7 @@
   </v-container>
   </Transition>
 
-  <NavBar class="bg-grey-darken-3" @ChangeQuestion="ChangeQuestion" :ID="this.StdID"/>
+  <NavBar class="bg-grey-darken-3" @ChangeQuestion="ChangeQuestion" :Num="this.Exam.questionsNotesMarks.length" :ID="this.StdID"/>
     
   <v-main>
 
