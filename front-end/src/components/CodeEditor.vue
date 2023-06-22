@@ -28,10 +28,14 @@ export default {
     },
     SubmitExam: function() {
       for (let i = 0; i < this.EditorList.length; i++) {
-        this.Code += (JSON.stringify(this.EditorList[i]) + '`')
+        if(this.EditorList[i] == null) {
+          this.Code += '`'
+        } else {
+          this.Code += (JSON.stringify(this.EditorList[i]) + '`')
+        }
       }
       this.Code = this.Code.replaceAll('"', '')
-      this.Code.substring(0, this.Code.length - 1)
+      this.Code = this.Code.substring(0, this.Code.length - 1)
       axios.post('http://localhost:8000/api/submitExam', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
