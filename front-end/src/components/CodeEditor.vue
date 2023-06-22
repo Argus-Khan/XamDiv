@@ -27,16 +27,17 @@ export default {
       })
     },
     SubmitExam: function() {
-      this.Code = (JSON.stringify(this.EditorList[0]) + '`' + JSON.stringify(this.EditorList[1]) + '`' + JSON.stringify(this.EditorList[2]) + '`' + JSON.stringify(this.EditorList[3]) + '`' + JSON.stringify(this.EditorList[4])).replaceAll('"', '')
-      console.log(this.Code)
+      for (let i = 0; i < this.EditorList.length; i++) {
+        this.Code += (JSON.stringify(this.EditorList[i]) + '`')
+      }
+      this.Code = this.Code.replaceAll('"', '')
+      this.Code.substring(0, this.Code.length - 1)
       axios.post('http://localhost:8000/api/submitExam', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
         Sub_time: this.TimeTaken,
         Code_Ans: this.Code
       })
-      .then((response)=>{console.log(response)})
-      .catch((error)=>{console.log(error)})
     }
   }
 }
