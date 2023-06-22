@@ -19,9 +19,6 @@
 
 <script>
   export default {
-    props: ['ID', 'Num'],
-    created() {
-      console.log(this.Num)
-    }
+    props: ['ID', 'Num']
   }
 </script>

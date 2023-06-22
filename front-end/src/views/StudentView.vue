@@ -86,7 +86,7 @@ export default defineComponent({
             SubmitExam: false,
             QuestionNumber: 1,
             CompileDisabled: [false, false, false, false, false],
-            Compiles: [0, 0, 0, 0, 0],
+            Compiles: [],
             StartCountdown: false,
             Exam: {
               questionsNotesMarks: [{}],
@@ -126,7 +126,12 @@ export default defineComponent({
 
     beforeCreate() {
       axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
-      .then((response)=>{this.Exam = response.data.examData; this.TimeLeft = response.data.timeLeft;})
+      .then((response)=>{
+        this.Exam = response.data.examData; this.TimeLeft = response.data.timeLeft;
+        for (let i = 0; i < this.Exam.questionsNotesMarks.length; i++) {
+          this.Compiles[i] = 0
+        }
+      })
     }
 });
 </script>

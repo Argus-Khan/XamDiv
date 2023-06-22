@@ -10,9 +10,7 @@ import axios from "axios"
 export default {
   data() {
     return {
-      EditorList: [
-        '', '', '', '', ''
-      ],
+      EditorList: [],
       Code: ''
     }
   },
