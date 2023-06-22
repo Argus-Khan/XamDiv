@@ -3,7 +3,7 @@ A portable and easy to use exam taking device that makes the lives of professors
 _[How to setup XamDiv](#installation-and-setup)_
 
 ## Functionality
-For the XamDiv to work it only needs to be connected to power. Once it is turned on it will automatically fire up the webserver and all other needed processes. The only thing that students and professors need to do is to connect to XamDiv's network using WiFi. Upon connection to the device, <ins>(the default browser will open the website with the URL www.XamDix.edu.)<ins> <br>
+For the XamDiv to work it only needs to be connected to power. Once it is turned on it will automatically fire up the webserver and all other needed processes. The only thing that students and professors need to do is to connect to XamDiv's network using WiFi. Upon connection to the device, <ins>(the default browser will open the website with the URL www.XamDiv.edu.)<ins> <br>
 
 The website has 3 main parts: <br>
 The login page, professor page and exam page. <br>
