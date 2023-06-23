@@ -125,7 +125,7 @@ export default defineComponent({
     },
 
     beforeCreate() {
-      axios.get('http://localhost:8000/api/getExam?Exam_Id=' + this.ExamID)
+      axios.get('http://192.168.12.1:8000/api/getExam?Exam_Id=' + this.ExamID)
       .then((response)=>{
         this.Exam = response.data.examData; this.TimeLeft = response.data.timeLeft;
         for (let i = 0; i < this.Exam.questionsNotesMarks.length; i++) {

@@ -63,7 +63,7 @@ export default defineComponent({
       if(this.ID != '') {
         if (this.UserType === 'Student') {
           if (this.ExamID != '') {
-            axios.put('http://localhost:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
+            axios.put('http://192.168.12.1:8000/api/Stdlogin?Std_Id=' + this.ID + '&Exam_Id=' + this.ExamID)
             .then((response) => {
               if (response.data.Response === 'Access granted') {
                 this.$emit('login', this.ID, this.ExamID)
@@ -76,7 +76,7 @@ export default defineComponent({
             alert('Please enter the Exam ID')
           }
         } else {
-          axios.get('http://localhost:8000/api/Proflogin?Prof_Id=' + this.ID + '&Pswd=' + this.Password)
+          axios.get('http://192.168.12.1:8000/api/Proflogin?Prof_Id=' + this.ID + '&Pswd=' + this.Password)
           .then((response) => {
             if (response.data.Response === 'Access granted') {
               this.$router.push('/database');

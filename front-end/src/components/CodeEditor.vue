@@ -17,7 +17,7 @@ export default {
   props: ['QuestionNumber', 'SubmitExam', 'Compiling', 'ExamID', 'StdID', 'SubmitQuestion', 'TimeTaken'],
   watch: {
     Compiling: function() {
-      axios.post('http://localhost:8000/api/compileTest', {
+      axios.post('http://192.168.12.1:8000/api/compileTest', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
         Q_Num: this.QuestionNumber,
@@ -36,7 +36,7 @@ export default {
       }
       this.Code = this.Code.replaceAll('"', '')
       this.Code = this.Code.substring(0, this.Code.length - 1)
-      axios.post('http://localhost:8000/api/submitExam', {
+      axios.post('http://192.168.12.1:8000/api/submitExam', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
         Sub_time: this.TimeTaken,
