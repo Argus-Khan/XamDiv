@@ -42,6 +42,7 @@ export default {
         Sub_time: this.TimeTaken,
         Code_Ans: this.Code
       })
+      .catch((error) => {console.log(error)})
     }
   }
 }
