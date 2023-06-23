@@ -17,6 +17,9 @@ export default {
   props: ['QuestionNumber', 'SubmitExam', 'Compiling', 'ExamID', 'StdID', 'SubmitQuestion', 'TimeTaken'],
   watch: {
     Compiling: function() {
+      if(this.EditorList[this.QuestionNumber - 1] === undefined) {
+        this.EditorList[this.QuestionNumber - 1] = '';
+      }
       axios.post('http://192.168.12.1:8000/api/compileTest', {
         Exam_Id: this.ExamID,
         Std_Id: this.StdID,
